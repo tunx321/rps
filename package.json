@@ -1,0 +1,24 @@
+{
+  "name": "rps",
+  "version": "1.0.0",
+  "description": "Rock Paper Scissor contract",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/tunx321/rps.git"
+  },
+  "author": "Almat, Alijane, Aiym",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/tunx321/rps/issues"
+  },
+  "homepage": "https://github.com/tunx321/rps#readme",
+  "dependencies": {
+    "ethers": "^5.7.2",
+    "express": "^4.18.2",
+    "web3": "^4.1.2"
+  }
+}
