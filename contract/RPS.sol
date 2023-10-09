@@ -41,20 +41,20 @@ contract RPSContract{
     }
 
 
-    function play(string memory playerSelection, uint _bet) public payable minimalBet{
+    function play(string memory playerSelection) public payable minimalBet{
         string memory roundResult = "";
         string memory computerSelection = computerPlay();
 
         if (keccak256(abi.encodePacked(playerSelection)) == keccak256(abi.encodePacked(computerSelection))) {
             roundResult = "It's a tie!";
-            withdrawToTie(payable(msg.sender), _bet);
+            withdrawToTie(payable(msg.sender));
         } else if (
             (keccak256(abi.encodePacked(playerSelection)) == keccak256(abi.encodePacked("rock")) && keccak256(abi.encodePacked(computerSelection)) == keccak256(abi.encodePacked("scissors"))) ||
             (keccak256(abi.encodePacked(playerSelection)) == keccak256(abi.encodePacked("paper")) && keccak256(abi.encodePacked(computerSelection)) == keccak256(abi.encodePacked("rock"))) ||
             (keccak256(abi.encodePacked(playerSelection)) == keccak256(abi.encodePacked("scissors")) && keccak256(abi.encodePacked(computerSelection)) == keccak256(abi.encodePacked("paper")))
         ) {
             roundResult = "You win this round!";
-            withdrawToWinner(payable(msg.sender), _bet);
+            withdrawToWinner(payable(msg.sender));
         } else {
             roundResult = "Computer wins this round!";
         }
@@ -67,11 +67,11 @@ contract RPSContract{
     }
 
 
-    function withdrawToWinner(address payable  _to, uint bet) private  {
-        _to.transfer(bet * 2);
+    function withdrawToWinner(address payable  _to) private  {
+        _to.transfer(msg.value * 2);
     }
 
-     function withdrawToTie(address payable  _to, uint bet) private  {
-        _to.transfer(bet);
+     function withdrawToTie(address payable  _to) private  {
+        _to.transfer(msg.value);
     }
 }

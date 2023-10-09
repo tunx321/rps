@@ -6,7 +6,7 @@
     <title>Rock, Paper, Scissors</title>
     <style>
         body {
-            background-color: blue; 
+            background-color: #4D4C7D; 
             font-family: Arial, sans-serif;
             text-align: center;
         }
@@ -23,7 +23,7 @@
         }
 
         #game-container {
-            background-color: blue; 
+            background-color: #4D4C7D; 
             padding: 60px;
             border-radius: 10px;
             margin-top: 100px;
@@ -97,6 +97,17 @@
             cursor: pointer;
             color: white;
         }
+
+        .center-div {
+            text-align: center;
+        }
+
+            
+        .center-div select,
+        .center-div input,
+        .center-div button {
+            margin: 10px; 
+        }
     </style>
 </head>
 <body>
@@ -104,14 +115,14 @@
     <button onclick="connectWallet()" id="metamask-button">Metamask</button>
     <p id="accountArea"></p>
 
-    <button id="history-button">History</button>
+    <button onclick="getHistory()" id="history-button">History</button>
     <div id="game-container">
         <div id="round-description">Choose your move</div>
     </div>
     <div id="result"></div>
     <button id="restart">Restart</button>
-    <div>
-        <label for="choice">Choose your move:</label>
+    <div class="center-div">
+        <label for="choice">Your move:</label>
         <select id="choice">
             <option value="0">Rock</option>
             <option value="1">Paper</option>
@@ -124,7 +135,7 @@
         </div>
 
         <div>
-            <button onclick="playGame()">Play</button>
+            <button class="btn" onclick="playGame()">Play</button>
         </div>
 
         <div id="result"></div>
@@ -210,11 +221,6 @@ gameContract = new ethers.Contract(contractAddress, contractABI, signer);
         const choice = document.getElementById("choice").value;
         const betAmount = document.getElementById("betAmount").value;
 
-        const tx = await gameContract.play(choice, {
-            value: ethers.utils.parseEther(betAmount),
-            gasLimit: 1000000
-        });
-
 
         const receipt = await tx.wait();
 
@@ -240,6 +246,21 @@ gameContract = new ethers.Contract(contractAddress, contractABI, signer);
         console.error("Error:", error);
         document.getElementById("result").innerText = "An error occurred.";
     }
+}
+
+
+
+async function getHistory(){
+    const tx = await gameContract.play(choice, {
+            value: ethers.utils.parseEther(betAmount),
+            gasLimit: 1000000
+        });
+
+        const txHistory = await gameContract.getHistory();
+
+        const receiptHistory = await txHistory.wait();
+
+        console.log(receiptHistory)
 }
     </script>
 
