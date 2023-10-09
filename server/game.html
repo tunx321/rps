@@ -119,7 +119,7 @@
         </select>
 
         <div>
-            <label for="betAmount">Bet Amount (in Ether):</label>
+            <label for="betAmount">Bet Amount (in tBNB):</label>
             <input type="text" id="betAmount" placeholder="Enter your bet amount">
         </div>
 
@@ -140,68 +140,68 @@ async function connectWallet() {
             const acccounts = await ethereum.request({method: "eth_requestAccounts"})
             account = acccounts[0];
             document.getElementById("accountArea").innerHTML = account;}}
-                    provider = new ethers.providers.Web3Provider(window.ethereum);
+            provider = new ethers.providers.Web3Provider(window.ethereum);
             signer = provider.getSigner();
 
             const contractAddress = "0xCC058641D2d106D13EC5B1fC14Bb0d5D4072282B";
             contractABI=[
-                {
-                    "inputs": [],
-                    "stateMutability": "payable",
-                    "type": "constructor"
-                },
-                {
-                    "inputs": [],
-                    "name": "getHistory",
-                    "outputs": [
-                        {
-                            "components": [
-                                {
-                                    "internalType": "string",
-                                    "name": "result",
-                                    "type": "string"
-                                },
-                                {
-                                    "internalType": "uint8",
-                                    "name": "bet",
-                                    "type": "uint8"
-                                }
-                            ],
-                            "internalType": "struct RPSContract.Game[]",
-                            "name": "",
-                            "type": "tuple[]"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [],
-                    "name": "owner",
-                    "outputs": [
-                        {
-                            "internalType": "address",
-                            "name": "",
-                            "type": "address"
-                        }
-                    ],
-                    "stateMutability": "view",
-                    "type": "function"
-                },
-                {
-                    "inputs": [
-                        {
-                            "internalType": "string",
-                            "name": "playerSelection",
-                            "type": "string"
-                        }
-                    ],
-                    "name": "play",
-                    "outputs": [],
-                    "stateMutability": "payable",
-                    "type": "function"
-                }
-            ]
+	{
+		"inputs": [],
+		"stateMutability": "payable",
+		"type": "constructor"
+	},
+	{
+		"inputs": [],
+		"name": "getHistory",
+		"outputs": [
+			{
+				"components": [
+					{
+						"internalType": "string",
+						"name": "result",
+						"type": "string"
+					},
+					{
+						"internalType": "uint8",
+						"name": "bet",
+						"type": "uint8"
+					}
+				],
+				"internalType": "struct RPSContract.Game[]",
+				"name": "",
+				"type": "tuple[]"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [],
+		"name": "owner",
+		"outputs": [
+			{
+				"internalType": "address",
+				"name": "",
+				"type": "address"
+			}
+		],
+		"stateMutability": "view",
+		"type": "function"
+	},
+	{
+		"inputs": [
+			{
+				"internalType": "string",
+				"name": "playerSelection",
+				"type": "string"
+			}
+		],
+		"name": "play",
+		"outputs": [],
+		"stateMutability": "payable",
+		"type": "function"
+	}
+]
 
 gameContract = new ethers.Contract(contractAddress, contractABI, signer);
 
@@ -214,6 +214,7 @@ gameContract = new ethers.Contract(contractAddress, contractABI, signer);
             value: ethers.utils.parseEther(betAmount),
             gasLimit: 1000000
         });
+
 
         const receipt = await tx.wait();
 
